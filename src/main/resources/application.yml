@@ -1,0 +1,40 @@
+spring:
+  main:
+    web-application-type: none
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:~/new_morandi
+    username: sa
+    password:
+
+    business:
+      driverClassName: org.mariadb.jdbc.Driver
+      jdbcUrl: jdbc:mariadb://127.0.0.1:3306/new_morandi?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password: Pepsi1943@
+     # driver-class-name: org.mariadb.jdbc.Driver
+     # url: jdbc:mariadb://127.0.0.1:3306/new_morandi?allowPublicKeyRetrieval=true&useSSL=false
+
+
+#      jdbc:
+#        initialize-schema: always
+
+
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: true
+
+      name: newBaekjoonProblemJob
+
+
