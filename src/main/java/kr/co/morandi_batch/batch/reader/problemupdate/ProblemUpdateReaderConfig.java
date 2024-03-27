@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.batch.reader;
+package kr.co.morandi_batch.batch.reader.problemupdate;
 
 import jakarta.persistence.EntityManagerFactory;
 import kr.co.morandi_batch.batch.pagingCollectionsItemReader.PagingCollectionsItemReader;
@@ -13,10 +13,9 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class ProblemDBBulkReadConfig {
+public class ProblemUpdateReaderConfig {
 
     private final EntityManagerFactory emf;
-
     @Bean
     PagingCollectionsItemReader<Problem, List<Problem>> problemPagingCollectionsItemReader() {
         return new PagingCollectionsItemReaderBuilder<Problem,List<Problem>>()
@@ -27,5 +26,4 @@ public class ProblemDBBulkReadConfig {
                 .name("problemPagingCollectionsItemReader")
                 .build();
     }
-
 }

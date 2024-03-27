@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "problem_algorithm")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProblemAlgorithm extends BaseEntity {
 
@@ -23,6 +24,13 @@ public class ProblemAlgorithm extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Problem problem;
+
+    public static ProblemAlgorithm create(Algorithm algorithm, Problem problem) {
+        return ProblemAlgorithm.builder()
+                .algorithm(algorithm)
+                .problem(problem)
+                .build();
+    }
 
     @Builder
     private ProblemAlgorithm(Algorithm algorithm, Problem problem) {

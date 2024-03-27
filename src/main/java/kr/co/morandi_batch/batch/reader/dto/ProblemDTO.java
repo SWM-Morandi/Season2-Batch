@@ -4,6 +4,7 @@ import kr.co.morandi_batch.domain.problem.Problem;
 import kr.co.morandi_batch.domain.problem.ProblemTier;
 import lombok.*;
 
+import static kr.co.morandi_batch.domain.problem.ProblemStatus.ACTIVE;
 import static kr.co.morandi_batch.domain.problem.ProblemStatus.INIT;
 
 @Getter
@@ -27,7 +28,7 @@ public class ProblemDTO {
         return Problem.builder()
                 .baekjoonProblemId(problemId)
 //                .title(titleKo)
-                .problemStatus(INIT)
+                .problemStatus(ACTIVE)
                 .problemTier(ProblemTier.of(level))
                 .solvedCount(Long.valueOf(acceptedUserCount))
                 .build();

@@ -1,7 +1,11 @@
 package kr.co.morandi_batch.domain.problem;
 
+import kr.co.morandi_batch.domain.problemalgorithm.ProblemAlgorithm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
     @Query("""
@@ -11,4 +15,9 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
             LIMIT 1
             """)
     Long findLastBaekjoonProblemId();
+
+    List<Problem> findAllByProblemIdIn(List<Long> problemIds);
+    @Query("SELECT pa FROM ProblemAlgorithm pa WHERE pa.problem.problemId IN :problemIds")
+    List<ProblemAlgorithm> findAllByProblemAlgorithmsIdIn(@Param("problemIds") List<Long> problemIds);
+
 }
