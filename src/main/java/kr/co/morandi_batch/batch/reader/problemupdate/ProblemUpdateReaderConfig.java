@@ -8,8 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -18,10 +21,10 @@ public class ProblemUpdateReaderConfig {
     private final EntityManagerFactory emf;
     @Bean
     PagingCollectionsItemReader<Problem, List<Problem>> problemPagingCollectionsItemReader() {
-        return new PagingCollectionsItemReaderBuilder<Problem,List<Problem>>()
+        return new PagingCollectionsItemReaderBuilder<Problem, List<Problem>>()
                 .entityManagerFactory(emf)
                 .collectionClass(ArrayList.class)
-                .chunkAndCollectionSize(10,50)
+                .chunkAndCollectionSize(10, 50)
                 .queryString("select p from Problem p ")
                 .name("problemPagingCollectionsItemReader")
                 .build();

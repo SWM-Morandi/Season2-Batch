@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "problem_algorithm")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProblemAlgorithm extends BaseEntity {
 

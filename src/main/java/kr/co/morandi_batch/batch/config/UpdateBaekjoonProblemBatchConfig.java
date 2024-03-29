@@ -1,8 +1,6 @@
 package kr.co.morandi_batch.batch.config;
 
 import kr.co.morandi_batch.batch.pagingCollectionsItemReader.PagingCollectionsItemReader;
-import kr.co.morandi_batch.batch.processor.problemupdate.GetProblemUpdateInfoProcessor;
-import kr.co.morandi_batch.batch.processor.problemupdate.ProblemUpdateProcessor;
 import kr.co.morandi_batch.batch.writer.ProblemUpdateWriter;
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +38,7 @@ public class UpdateBaekjoonProblemBatchConfig {
     Step updateProblemStep(JobRepository jobRepository, PlatformTransactionManager transactionManger) {
         return new StepBuilder("updateProblemStep", jobRepository)
                 .<List<Problem>, List<Problem>>chunk(10, transactionManger)
-                .allowStartIfComplete(true)
+//                .allowStartIfComplete(true)
                 .reader(problemPagingCollectionsItemReader)
                 .processor(compositeItemProcessor)
                 .writer(problemUpdateWriter)

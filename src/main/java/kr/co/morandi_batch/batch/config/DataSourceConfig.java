@@ -1,55 +1,41 @@
-//package kr.co.morandi_batch.batch.config;
-//
-//import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.boot.context.properties.ConfigurationProperties;
-//import org.springframework.boot.jdbc.DataSourceBuilder;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.Primary;
-//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-//import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-//import org.springframework.orm.jpa.JpaTransactionManager;
-//import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-//import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-//import org.springframework.transaction.PlatformTransactionManager;
-//
-//import javax.sql.DataSource;
-//
-//@Configuration
-//@EnableJpaRepositories(
-//        basePackages = "kr.co.morandi_batch.domain",
-//        entityManagerFactoryRef = "businessEntityManager",
-//        transactionManagerRef = "businessTransactionManager"
-//)
-//public class DataSourceConfig {
-//
-//    @Bean
-//    @Primary
-//    public LocalContainerEntityManagerFactoryBean businessEntityManager() {
-//        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-//
-//        em.setDataSource(businessDataSource());
-//        em.setPackagesToScan("kr.co.morandi_batch.domain");
-//        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-//
-//        return em;
-//    }
-//
-//    @Primary
-//    @Bean(name = "businessDataSource")
-//    @ConfigurationProperties(prefix = "spring.datasource.business")
-//    public DataSource businessDataSource() {
-//        return DataSourceBuilder.create().build();
-//    }
-//
-//    @Primary
-//    @Bean(name = "businessTransactionManager")
-//    public PlatformTransactionManager businessTransactionManager() {
-//        JpaTransactionManager transactionManager = new JpaTransactionManager();
-//
-//        transactionManager.setEntityManagerFactory(businessEntityManager().getObject());
-//
-//        return transactionManager;
-//    }
-//
-//}
+package kr.co.morandi_batch.batch.config;
+
+import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.batch.BatchDataSource;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+
+import javax.sql.DataSource;
+
+@Configuration
+public class DataSourceConfig {
+
+    @Bean(name = "batchDataSource")
+    @BatchDataSource
+    public DataSource H2Datasource () {
+        return new EmbeddedDatabaseBuilder()
+                .addScript("classpath:org/springframework/batch/core/schema-drop-h2.sql")
+                .addScript("classpath:org/springframework/batch/core/schema-h2.sql")
+                .setType(EmbeddedDatabaseType.H2)
+                .build();
+    }
+    @Bean
+    @Primary // 이 DataSource를 애플리케이션의 주 데이터 소스로 지정
+    public DataSource dataSource(@Value("${spring.datasource.driver-class-name}") String driverClassName,
+                                       @Value("${spring.datasource.url}") String url,
+                                       @Value("${spring.datasource.username}") String user,
+                                       @Value("${spring.datasource.password}") String pass) {
+        return DataSourceBuilder.create()
+                .driverClassName(driverClassName)
+                .url(url)
+                .username(user)
+                .password(pass)
+                .build();
+    }
+}

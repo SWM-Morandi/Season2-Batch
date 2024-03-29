@@ -20,12 +20,11 @@ public class GetProblemUpdateInfoProcessor implements ItemProcessor<List<Problem
 
     @Override
     public ProblemInfoProcessorDTO process(List<Problem> item) throws Exception {
-        if(item.get(0).getBaekjoonProblemId()>2500) {
-            return null;
-        }
+//        if(item.get(0).getBaekjoonProblemId()>2500) {
+//            return null;
+//        }
         BojProblemInfoList problemInfo = getProblemUpdated(item);
 
-        System.out.println("problemInfo = " + problemInfo);
         return ProblemInfoProcessorDTO.builder()
                 .problems(item)
                 .bojProblemInfoList(problemInfo)

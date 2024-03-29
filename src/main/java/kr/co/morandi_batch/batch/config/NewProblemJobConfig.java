@@ -24,6 +24,7 @@ public class NewProblemJobConfig {
     private final JdbcBatchItemWriter<Problem> newProblemWriter;
 
 
+
     @Bean
     Job newBaekjoonProblemJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new JobBuilder("newBaekjoonProblemJob", jobRepository)

@@ -25,21 +25,16 @@ import static kr.co.morandi_batch.domain.problem.ProblemStatus.INIT;
 public class Problem extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "problem_id")
     private Long problemId;
 
-    @Column(name = "baekjoon_problem_id")
     private Long baekjoonProblemId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "problem_tier")
     private ProblemTier problemTier;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "problem_status")
     private ProblemStatus problemStatus;
 
-    @Column(name = "solved_count")
     private Long solvedCount;
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
