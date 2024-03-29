@@ -2,10 +2,7 @@ package kr.co.morandi_batch.batch.config;
 
 import kr.co.morandi_batch.batch.processor.NewProblemProcessor;
 import kr.co.morandi_batch.batch.reader.NewProblemPagingReader;
-import kr.co.morandi_batch.batch.reader.NewProblemReader;
 import kr.co.morandi_batch.batch.reader.dto.ProblemDTO;
-import kr.co.morandi_batch.batch.reader.dto.ProblemsResponse;
-import kr.co.morandi_batch.batch.writer.NewProblemWriter;
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -18,8 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.List;
-
 @Configuration
 @RequiredArgsConstructor
 public class NewProblemJobConfig {
@@ -27,6 +22,7 @@ public class NewProblemJobConfig {
     private final NewProblemPagingReader newProblemPagingReader;
     private final NewProblemProcessor newProblemProcessor;
     private final JdbcBatchItemWriter<Problem> newProblemWriter;
+
 
 
     @Bean
@@ -41,7 +37,7 @@ public class NewProblemJobConfig {
     Step newBaekjoonProblemStep(JobRepository jobRepository, PlatformTransactionManager transactionManger) {
         return new StepBuilder("newBaekjoonProblemStep", jobRepository)
                 .<ProblemDTO, Problem>chunk(50, transactionManger)
-                .allowStartIfComplete(true)
+//                .allowStartIfComplete(true)
                 .reader(newProblemPagingReader)
                 .processor(newProblemProcessor)
                 .writer(newProblemWriter)

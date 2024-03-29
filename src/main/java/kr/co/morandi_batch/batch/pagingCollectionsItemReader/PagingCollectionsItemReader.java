@@ -157,7 +157,9 @@ public class PagingCollectionsItemReader<T, C extends Collection<T>> extends Abs
 
     }
     protected void doClose() throws Exception {
-        this.entityManager.close();
+        if(this.entityManager != null) {
+            this.entityManager.close();
+        }
         super.doClose();
     }
 }

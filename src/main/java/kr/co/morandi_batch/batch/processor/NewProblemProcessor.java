@@ -12,7 +12,7 @@ public class NewProblemProcessor implements ItemProcessor<ProblemDTO, Problem> {
 
     @Override
     public Problem process(ProblemDTO problemDTO) throws Exception {
-        log.info("Processing problem with ID: {}", problemDTO.getProblemId());
+        log.debug("Processing problem with ID: {}", problemDTO.getProblemId());
         return problemDTO.toEntity();
     }
 }
