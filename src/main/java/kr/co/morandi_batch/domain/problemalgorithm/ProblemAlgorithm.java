@@ -24,6 +24,13 @@ public class ProblemAlgorithm extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Problem problem;
 
+    public static ProblemAlgorithm create(Algorithm algorithm, Problem problem) {
+        return ProblemAlgorithm.builder()
+                .algorithm(algorithm)
+                .problem(problem)
+                .build();
+    }
+
     @Builder
     private ProblemAlgorithm(Algorithm algorithm, Problem problem) {
         this.algorithm = algorithm;
