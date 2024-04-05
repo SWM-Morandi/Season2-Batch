@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.baekjoonproblemcontent.reader;
+package kr.co.morandi_batch.baekjoonproblemcontent.processor;
 
 import kr.co.morandi_batch.baekjoonproblemcontent.dto.ProblemContent;
 import kr.co.morandi_batch.baekjoonproblemcontent.dto.SampleData;
@@ -8,30 +8,23 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
-@Deprecated
 @RequiredArgsConstructor
-public class BaekjoonContentReader implements ItemReader<ProblemContent> {
+public class BaekjoonContentsProcessor implements ItemProcessor<Long, ProblemContent> {
 
     private final String baseUrl = "https://www.acmicpc.net/problem/";
-    private long currentProblemId = 1000L;
-    private final long maxProblemId = 31750L;
 
     @Override
-    public ProblemContent read() throws IOException {
-        if (currentProblemId > maxProblemId) return null; // 모든 문제를 읽었다면 null 반환
-
-        String url = baseUrl + currentProblemId;
+    public ProblemContent process(Long baekjoonProblemId) throws Exception {
+        String url = baseUrl + baekjoonProblemId;
         Document doc = Jsoup.connect(url).get();
-
-
 
         // 시간 제한
         String timeLimit = doc.select("table#problem-info tbody tr td").get(0).text().trim();
@@ -40,8 +33,8 @@ public class BaekjoonContentReader implements ItemReader<ProblemContent> {
         String memoryLimit = doc.select("table#problem-info tbody tr td").get(1).text().trim();
 
         /*
-        * 아래는 혹시 모르니깐 남겨둔거
-        */
+         * 아래는 혹시 모르니깐 남겨둔거
+         */
 //        String submissions = doc.select("table#problem-info tbody tr td").get(2).text().trim();
 //        String accepted = doc.select("table#problem-info tbody tr td").get(3).text().trim();
 //        String correctPeople = doc.select("table#problem-info tbody tr td").get(4).text().trim();
@@ -97,7 +90,7 @@ public class BaekjoonContentReader implements ItemReader<ProblemContent> {
         String additionalJudgeInfo = extractAdditionalJudgeInfo(doc);
 
         ProblemContent problemDetails = ProblemContent.builder()
-                .baekjoonProblemId(currentProblemId)
+                .baekjoonProblemId(baekjoonProblemId)
                 .title(title)
                 .timeLimit(timeLimit)
                 .memoryLimit(memoryLimit)
@@ -112,9 +105,6 @@ public class BaekjoonContentReader implements ItemReader<ProblemContent> {
                 .additionalJudgeInfo(additionalJudgeInfo)
                 .build();
 
-
-
-        currentProblemId++;
         return problemDetails;
     }
 
@@ -193,7 +183,4 @@ public class BaekjoonContentReader implements ItemReader<ProblemContent> {
 
         return judgeInfoBuilder.isEmpty() ? null : judgeInfoBuilder.toString();
     }
-
-
-
 }
