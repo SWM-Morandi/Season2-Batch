@@ -1,6 +1,6 @@
 package kr.co.morandi_batch.baekjoonproblemcontent.reader;
 
-import kr.co.morandi_batch.baekjoonproblemcontent.dto.ProblemDetails;
+import kr.co.morandi_batch.baekjoonproblemcontent.dto.ProblemContent;
 import kr.co.morandi_batch.baekjoonproblemcontent.dto.SampleData;
 import kr.co.morandi_batch.baekjoonproblemcontent.dto.Subtask;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +17,14 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class BaekjoonContentReader implements ItemReader<ProblemDetails> {
+public class BaekjoonContentReader implements ItemReader<ProblemContent> {
 
     private final String baseUrl = "https://www.acmicpc.net/problem/";
-    private long currentProblemId = 12095L;
-    private final long maxProblemId = 12095L;
+    private long currentProblemId = 1000L;
+    private final long maxProblemId = 1004L;
 
     @Override
-    public ProblemDetails read() throws IOException {
+    public ProblemContent read() throws IOException {
         if (currentProblemId > maxProblemId) return null; // 모든 문제를 읽었다면 null 반환
 
         String url = baseUrl + currentProblemId;
@@ -93,7 +93,7 @@ public class BaekjoonContentReader implements ItemReader<ProblemDetails> {
         // 채점 및 기타 정보
         String additionalJudgeInfo = extractAdditionalJudgeInfo(doc);
 
-        ProblemDetails problemDetails = ProblemDetails.builder()
+        ProblemContent problemDetails = ProblemContent.builder()
                 .baekjoonProblemId(currentProblemId)
                 .title(title)
                 .timeLimit(timeLimit)
@@ -188,7 +188,7 @@ public class BaekjoonContentReader implements ItemReader<ProblemDetails> {
             judgeInfoBuilder.append(text.trim());
         }
 
-        return judgeInfoBuilder.toString();
+        return judgeInfoBuilder.isEmpty() ? null : judgeInfoBuilder.toString();
     }
 
 

@@ -1,8 +1,8 @@
 package kr.co.morandi_batch.baekjoonproblemcontent;
 
-import kr.co.morandi_batch.baekjoonproblemcontent.dto.ProblemDetails;
+import kr.co.morandi_batch.baekjoonproblemcontent.dto.ProblemContent;
 import kr.co.morandi_batch.baekjoonproblemcontent.reader.BaekjoonContentReader;
-import kr.co.morandi_batch.domain.problem.Problem;
+import kr.co.morandi_batch.baekjoonproblemcontent.writer.BaekjoonProblemContentWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -13,14 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.List;
-import java.util.Map;
-
 @Configuration
 @RequiredArgsConstructor
 public class BaekjoonProblemContentBatchConfig {
 
     private final BaekjoonContentReader baekjoonContentReader;
+
+    private final BaekjoonProblemContentWriter baekjoonProblemContentWriter;
 
     @Bean
     Job getBaekjoonContentJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
@@ -33,16 +32,13 @@ public class BaekjoonProblemContentBatchConfig {
     @Bean
     Step getBaekjoonContentStep(JobRepository jobRepository, PlatformTransactionManager transactionManger) {
         return new StepBuilder("baekjoonProblemContentsStep", jobRepository)
-                .<ProblemDetails, ProblemDetails>chunk(10, transactionManger)
-//                .allowStartIfComplete(true)
+                .<ProblemContent, ProblemContent>chunk(10, transactionManger)
                 .reader(baekjoonContentReader)
                 .processor(item-> {
                     System.out.println(item);
                     return item;
                 })
-                .writer(item -> {
-                    List<Problem> problems;
-                })
+                .writer(baekjoonProblemContentWriter)
                 .build();
     }
 }

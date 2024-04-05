@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 
-public class ProblemDetails {
+public class ProblemContent {
 
     private Long baekjoonProblemId;
     private String title;
@@ -28,7 +28,7 @@ public class ProblemDetails {
 
 
     @Builder
-    private ProblemDetails(Long baekjoonProblemId, String title, String memoryLimit, String timeLimit, String description, String input, String output, List<SampleData> samples, String hint, List<Subtask> subtasks, String problemLimit, String additionalTimeLimit, String additionalJudgeInfo) {
+    private ProblemContent(Long baekjoonProblemId, String title, String memoryLimit, String timeLimit, String description, String input, String output, List<SampleData> samples, String hint, List<Subtask> subtasks, String problemLimit, String additionalTimeLimit, String additionalJudgeInfo) {
         this.baekjoonProblemId = baekjoonProblemId;
         this.title = title;
         this.memoryLimit = memoryLimit;
