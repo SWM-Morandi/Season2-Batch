@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProblemUpdateProcessor implements ItemProcessor<ProblemInfoProcessorDTO, List<Problem>> {
     private Map<Integer, Algorithm> algorithmMap;
-    private final ObjectMapper objectMapper;
+
     private final AlgorithmRepository algorithmRepository;
 
     @PostConstruct
@@ -42,15 +42,6 @@ public class ProblemUpdateProcessor implements ItemProcessor<ProblemInfoProcesso
                 .collect(Collectors.toMap(BojProblemInfo::getProblemId, problem -> problem));
 
         final List<Problem> problems = item.getProblems();
-
-        final List<Long> problemIds = problems.stream().map(Problem::getProblemId).toList();
-
-        //TODO N+1 문제 해결하기
-//        log.info("start");
-//        for(Problem problem : problems) {
-//            problem.getProblemAlgorithms().size();
-//        }
-//        log.info("end");
 
         return problems.stream().peek(problem -> {
             final Long problemId = problem.getBaekjoonProblemId();

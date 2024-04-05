@@ -4,9 +4,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.database.AbstractPagingItemReader;
 import org.springframework.batch.item.database.orm.JpaQueryProvider;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
@@ -16,6 +19,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Supplier;
 
+@Slf4j
 public class PagingCollectionsItemReader<T, C extends Collection<T>> extends AbstractPagingItemReader<C> {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
@@ -98,19 +102,22 @@ public class PagingCollectionsItemReader<T, C extends Collection<T>> extends Abs
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @SuppressWarnings("unchecked")
     protected void doReadPage() {
-        EntityTransaction tx = null;
-        if (this.transacted) {
-            tx = this.entityManager.getTransaction();
-            tx.begin();
-            this.entityManager.flush();
-            this.entityManager.clear();
-        }
-
+        /*
+        * TotalPageSize는 collectionLengh * pageSize
+        * setMaxResult에 이걸 설정해서 한 번에 가져올 page 수를 설정
+        *
+        *  ex)collectionLength 는 50, chunkSize가 10이면
+        *
+        * 500개씩 페이징해오고, 50개씩 묶어서 반환
+        *
+        * */
         Query query = this.createQuery()
                         .setFirstResult(this.getPage() * this.getTotalPageSize())
                         .setMaxResults(this.getTotalPageSize());
+
 
         if (this.parameterValues != null) {
             Iterator iter = this.parameterValues.entrySet().iterator();
@@ -120,14 +127,10 @@ public class PagingCollectionsItemReader<T, C extends Collection<T>> extends Abs
                 query.setParameter((String)entry.getKey(), entry.getValue());
             }
         }
-
         initResults();
 
         fetchQuery(query);
 
-        if (this.transacted && tx != null) {
-            tx.commit();
-        }
     }
     protected void initResults() {
         if (CollectionUtils.isEmpty(results)) {
