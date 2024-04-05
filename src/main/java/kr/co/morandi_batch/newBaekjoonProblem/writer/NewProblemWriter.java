@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.batch.writer;
+package kr.co.morandi_batch.newBaekjoonProblem.writer;
 
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.extern.slf4j.Slf4j;

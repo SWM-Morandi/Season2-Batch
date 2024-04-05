@@ -1,6 +1,5 @@
-package kr.co.morandi_batch.batch.processor.problemupdate;
+package kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate;
 
-import kr.co.morandi_batch.batch.processor.problemupdate.ProblemUpdateProcessor;
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.support.CompositeItemProcessor;

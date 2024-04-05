@@ -1,6 +1,6 @@
-package kr.co.morandi_batch.batch.processor.problemupdate.dto;
+package kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto;
 
-import kr.co.morandi_batch.batch.processor.problemupdate.dto.response.BojProblemInfoList;
+import kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.response.BojProblemInfoList;
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.AccessLevel;
 import lombok.Builder;

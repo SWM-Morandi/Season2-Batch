@@ -1,10 +1,9 @@
-package kr.co.morandi_batch.batch.reader.dto;
+package kr.co.morandi_batch.updateBaekjoonProblem.reader.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

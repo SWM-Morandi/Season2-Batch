@@ -1,7 +1,7 @@
-package kr.co.morandi_batch.batch.reader;
+package kr.co.morandi_batch.newBaekjoonProblem.reader;
 
-import kr.co.morandi_batch.batch.reader.dto.ProblemDTO;
-import kr.co.morandi_batch.batch.reader.dto.ProblemsResponse;
+import kr.co.morandi_batch.updateBaekjoonProblem.reader.dto.ProblemDTO;
+import kr.co.morandi_batch.updateBaekjoonProblem.reader.dto.ProblemsResponse;
 import kr.co.morandi_batch.domain.problem.ProblemRepository;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Autowired;

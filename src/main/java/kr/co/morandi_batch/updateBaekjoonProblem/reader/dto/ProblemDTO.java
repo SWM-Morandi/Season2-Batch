@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.batch.reader.dto;
+package kr.co.morandi_batch.updateBaekjoonProblem.reader.dto;
 
 import kr.co.morandi_batch.domain.problem.Problem;
 import kr.co.morandi_batch.domain.problem.ProblemTier;

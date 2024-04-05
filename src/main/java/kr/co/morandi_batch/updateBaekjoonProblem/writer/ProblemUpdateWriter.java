@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.batch.writer;
+package kr.co.morandi_batch.updateBaekjoonProblem.writer;
 
 import jakarta.persistence.EntityManager;
 import kr.co.morandi_batch.domain.problem.Problem;

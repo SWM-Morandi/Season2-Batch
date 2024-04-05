@@ -1,8 +1,8 @@
-package kr.co.morandi_batch.batch.config;
+package kr.co.morandi_batch.newBaekjoonProblem;
 
-import kr.co.morandi_batch.batch.processor.NewProblemProcessor;
-import kr.co.morandi_batch.batch.reader.NewProblemPagingReader;
-import kr.co.morandi_batch.batch.reader.dto.ProblemDTO;
+import kr.co.morandi_batch.newBaekjoonProblem.processor.NewProblemProcessor;
+import kr.co.morandi_batch.newBaekjoonProblem.reader.NewProblemPagingReader;
+import kr.co.morandi_batch.updateBaekjoonProblem.reader.dto.ProblemDTO;
 import kr.co.morandi_batch.domain.problem.Problem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

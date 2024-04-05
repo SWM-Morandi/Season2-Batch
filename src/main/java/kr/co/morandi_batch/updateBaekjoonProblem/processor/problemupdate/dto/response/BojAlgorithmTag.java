@@ -1,4 +1,4 @@
-package kr.co.morandi_batch.batch.processor.problemupdate.dto.response;
+package kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Getter;

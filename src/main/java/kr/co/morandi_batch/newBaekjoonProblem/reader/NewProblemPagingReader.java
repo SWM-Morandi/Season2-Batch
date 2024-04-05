@@ -1,7 +1,7 @@
-package kr.co.morandi_batch.batch.reader;
+package kr.co.morandi_batch.newBaekjoonProblem.reader;
 
-import kr.co.morandi_batch.batch.reader.dto.ProblemDTO;
-import kr.co.morandi_batch.batch.reader.dto.ProblemsResponse;
+import kr.co.morandi_batch.updateBaekjoonProblem.reader.dto.ProblemDTO;
+import kr.co.morandi_batch.updateBaekjoonProblem.reader.dto.ProblemsResponse;
 import kr.co.morandi_batch.domain.problem.ProblemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;

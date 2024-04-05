@@ -1,7 +1,7 @@
-package kr.co.morandi_batch.batch.processor.problemupdate;
+package kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate;
 
-import kr.co.morandi_batch.batch.processor.problemupdate.dto.ProblemInfoProcessorDTO;
-import kr.co.morandi_batch.batch.processor.problemupdate.dto.response.BojProblemInfoList;
+import kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.ProblemInfoProcessorDTO;
+import kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.response.BojProblemInfoList;
 import kr.co.morandi_batch.domain.problem.Problem;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;

@@ -1,15 +1,12 @@
-package kr.co.morandi_batch.batch.processor.problemupdate;
+package kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
-import kr.co.morandi_batch.batch.processor.problemupdate.dto.ProblemInfoProcessorDTO;
-import kr.co.morandi_batch.batch.processor.problemupdate.dto.response.BojProblemInfo;
+import kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.ProblemInfoProcessorDTO;
+import kr.co.morandi_batch.updateBaekjoonProblem.processor.problemupdate.dto.response.BojProblemInfo;
 import kr.co.morandi_batch.domain.algorithm.Algorithm;
 import kr.co.morandi_batch.domain.algorithm.AlgorithmRepository;
 import kr.co.morandi_batch.domain.problem.Problem;
-import kr.co.morandi_batch.domain.problem.ProblemRepository;
 import kr.co.morandi_batch.domain.problem.ProblemTier;
-import kr.co.morandi_batch.domain.problemalgorithm.ProblemAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
