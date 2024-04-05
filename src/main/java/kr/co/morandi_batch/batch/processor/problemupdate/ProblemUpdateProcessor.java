@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProblemUpdateProcessor implements ItemProcessor<ProblemInfoProcessorDTO, List<Problem>> {
     private Map<Integer, Algorithm> algorithmMap;
+
     private final AlgorithmRepository algorithmRepository;
 
     @PostConstruct
