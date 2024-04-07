@@ -24,7 +24,14 @@ public class BaekjoonContentsProcessor implements ItemProcessor<Long, ProblemCon
     @Override
     public ProblemContent process(Long baekjoonProblemId) throws Exception {
         String url = baseUrl + baekjoonProblemId;
-        Document doc = Jsoup.connect(url).get();
+        Document doc;
+
+        try{
+            doc = Jsoup.connect(url).get();
+        }
+        catch (Exception e){
+            return null;
+        }
 
         // 시간 제한
         String timeLimit = doc.select("table#problem-info tbody tr td").get(0).text().trim();
